@@ -42,13 +42,15 @@ export function errorResponse(err: unknown): Response {
     const body: ApiError = { error: { code: err.code, message: err.message } };
     return json(body, err.status);
   }
-  // TEMPORARY DEBUG: surface the real error so we can diagnose the provisioning 500.
-  // REVERT THIS before going live — it leaks internal details.
-  const detail =
-    err instanceof Error ? `${err.name}: ${err.message}` : String(err);
-  console.error("Unhandled error:", detail, err instanceof Error ? err.stack : "");
+  // Log the real error server-side (visible in Worker logs) but never leak details
+  // to the client.
+  console.error(
+    "Unhandled error:",
+    err instanceof Error ? `${err.name}: ${err.message}` : String(err),
+    err instanceof Error ? err.stack : ""
+  );
   const body: ApiError = {
-    error: { code: "internal_error", message: `DEBUG: ${detail}` },
+    error: { code: "internal_error", message: "Something went wrong." },
   };
   return json(body, 500);
 }
