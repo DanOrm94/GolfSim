@@ -29,7 +29,7 @@
     {
       "binding": "DB",
       "database_name": "golfsim_db",
-      "database_id": "REPLACE_WITH_PRODUCTION_DATABASE_ID",
+      "database_id": "e640c9d0-738d-4ba1-b856-530d9005f0f9",
       "migrations_dir": "migrations"
     }
   ],
@@ -53,7 +53,8 @@
         {
           "binding": "DB",
           "database_name": "golfsim_db",
-          "database_id": "REPLACE_WITH_PREVIEW_DATABASE_ID",
+          // Points at the same D1 database as production (no separate preview DB).
+          "database_id": "e640c9d0-738d-4ba1-b856-530d9005f0f9",
           "migrations_dir": "migrations"
         }
       ]
