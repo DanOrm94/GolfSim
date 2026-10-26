@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-fairway-50 text-fairway-950 antialiased;
+}
+
+/* Visible focus ring for keyboard users across interactive elements. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  @apply outline-none ring-2 ring-fairway-500 ring-offset-2 ring-offset-white;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply btn bg-fairway-600 text-white hover:bg-fairway-700;
+  }
+  .btn-secondary {
+    @apply btn border border-fairway-300 bg-white text-fairway-800 hover:bg-fairway-50;
+  }
+  .btn-danger {
+    @apply btn bg-red-600 text-white hover:bg-red-700;
+  }
+  .card {
+    @apply rounded-2xl border border-fairway-100 bg-white p-6 shadow-sm;
+  }
+  .label {
+    @apply mb-1 block text-sm font-medium text-fairway-800;
+  }
+  .input {
+    @apply w-full rounded-lg border border-fairway-200 bg-white px-3 py-2 text-sm text-fairway-950 placeholder:text-fairway-300 focus:border-fairway-500;
+  }
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+}

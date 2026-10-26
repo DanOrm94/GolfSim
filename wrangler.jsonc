@@ -1,0 +1,62 @@
+{
+  // Cloudflare Workers configuration for the Golf Simulator booking system.
+  // A single Worker serves the built React SPA (static assets) and the /api/* backend.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "golfsim-booking",
+  "main": "worker/index.ts",
+  "compatibility_date": "2024-12-30",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Built SPA assets are served from here. Any non-asset path falls back to index.html
+  // so the client-side router can handle it. The Worker intercepts /api/* first via
+  // run_worker_first below.
+  "assets": {
+    "directory": "./dist/client",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    // Route everything through the Worker first EXCEPT hashed build assets, which are
+    // served directly from the edge for performance.
+    "run_worker_first": ["/api/*"]
+  },
+
+  "observability": {
+    "enabled": true
+  },
+
+  // Default (production) D1 binding.
+  // Replace database_id with the ID printed by: wrangler d1 create golfsim_db
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "golfsim_db",
+      "database_id": "REPLACE_WITH_PRODUCTION_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  // Non-sensitive config. Secrets (SESSION_SECRET, ADMIN_PROVISION_TOKEN) must be set
+  // with `wrangler secret put`, never committed here.
+  "vars": {
+    "FACILITY_TIMEZONE": "Europe/London",
+    "ENVIRONMENT": "production"
+  },
+
+  // A separate preview/staging environment with its own D1 database.
+  "env": {
+    "preview": {
+      "name": "golfsim-booking-preview",
+      "vars": {
+        "FACILITY_TIMEZONE": "Europe/London",
+        "ENVIRONMENT": "preview"
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "golfsim_db",
+          "database_id": "REPLACE_WITH_PREVIEW_DATABASE_ID",
+          "migrations_dir": "migrations"
+        }
+      ]
+    }
+  }
+}

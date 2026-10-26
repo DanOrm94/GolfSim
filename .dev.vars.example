@@ -1,0 +1,12 @@
+# Copy this file to `.dev.vars` for local Worker development (wrangler dev).
+# `.dev.vars` is gitignored and must never be committed.
+# In production/preview these are set via `wrangler secret put <NAME>`.
+
+# Signs and verifies session tokens and CSRF tokens. Use a long random string.
+# Generate one with:  node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"
+SESSION_SECRET="replace-with-a-long-random-secret"
+
+# One-time bootstrap token that authorises the first-administrator provisioning
+# endpoint. Set it, provision the admin, then rotate/remove it.
+# Generate one with:  node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"
+ADMIN_PROVISION_TOKEN="replace-with-a-long-random-bootstrap-token"
