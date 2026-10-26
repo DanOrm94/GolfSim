@@ -7,7 +7,10 @@
 // is the pragmatic, dependency-free, Workers-compatible choice and is documented as
 // such in the README.)
 
-const PBKDF2_ITERATIONS = 210_000; // OWASP-recommended floor for PBKDF2-HMAC-SHA256
+// The Cloudflare Workers WebCrypto runtime caps PBKDF2 at 100,000 iterations
+// (requests above that throw NotSupportedError). We use the maximum the runtime
+// allows. 100k PBKDF2-HMAC-SHA256 remains a reasonable work factor for this app.
+const PBKDF2_ITERATIONS = 100_000;
 const SALT_BYTES = 16;
 const KEY_BYTES = 32;
 const encoder = new TextEncoder();

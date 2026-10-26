@@ -56,7 +56,7 @@ export async function handleLogin(env: Env, request: Request): Promise<Response>
   // Always perform a hash verification to reduce username enumeration via timing.
   const storedHash =
     user?.password_hash ??
-    "pbkdf2$210000$AAAAAAAAAAAAAAAAAAAAAA==$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    "pbkdf2$100000$AAAAAAAAAAAAAAAAAAAAAA==$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
   const passwordOk = await verifyPassword(password, storedHash);
 
   if (!user || !passwordOk) {
