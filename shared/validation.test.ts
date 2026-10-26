@@ -29,8 +29,12 @@ describe("validateUsername", () => {
 });
 
 describe("validatePassword", () => {
-  it("rejects short passwords", () => {
-    expect(validatePassword("Ab1!").ok).toBe(false);
+  it("rejects an empty password", () => {
+    expect(validatePassword("").ok).toBe(false);
+  });
+  it("accepts a short password that still meets the character-class rule", () => {
+    // Length minimum relaxed to 1; mix rule still applies.
+    expect(validatePassword("Ab1!").ok).toBe(true);
   });
   it("requires at least 3 character classes", () => {
     expect(validatePassword("alllowercaseonly").ok).toBe(false);

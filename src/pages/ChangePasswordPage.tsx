@@ -93,7 +93,7 @@ export default function ChangePasswordPage() {
               required
             />
             <p className="mt-1 text-xs text-fairway-500">
-              At least 10 characters, using 3 of: lowercase, uppercase, number, symbol.
+              Use 3 of: lowercase, uppercase, number, symbol.
             </p>
           </div>
           <div>

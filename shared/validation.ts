@@ -3,7 +3,8 @@
 
 export const USERNAME_MIN = 3;
 export const USERNAME_MAX = 32;
-export const PASSWORD_MIN = 10;
+// Minimum relaxed per request: only requires a non-empty password.
+export const PASSWORD_MIN = 1;
 export const PASSWORD_MAX = 128;
 
 // Allowed username characters: lowercase letters, digits, dot, underscore, hyphen.
